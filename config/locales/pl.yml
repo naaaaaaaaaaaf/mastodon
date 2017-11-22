@@ -9,7 +9,7 @@ pl:
     contact_missing: Nie ustawiono
     contact_unavailable: Nie dotyczy
     description_headline: Czym jest %{domain}?
-    domain_count_after: instancji
+    domain_count_after: instancjami
     domain_count_before: Serwer połączony z
     extended_description_html: |
       <h3>Dobre miejsce na zasady użytkowania</h3>
@@ -39,6 +39,7 @@ pl:
     followers: Śledzących
     following: Śledzi
     media: Zawartość multimedialna
+    moved_html: "%{name} korzysta teraz z konta %{new_profile_link}:"
     nothing_here: Niczego tu nie ma!
     people_followed_by: Konta śledzone przez %{name}
     people_who_follow: Osoby, które śledzą konto %{name}
@@ -244,6 +245,9 @@ pl:
         open:
           desc_html: Pozwól każdemu na założenie konta
           title: Otwarta rejestracja
+      show_staff_badge:
+        desc_html: Pokazuj odznakę uprawnień na stronie profilu użytkownika
+        title: Pokazuj odznakę administracji
       site_description:
         desc_html: Akapit wprowadzający, widoczny na stronie głównej i znacznikach meta. Możesz korzystać z tagów HTML, w szczególności <code>&lt;a&gt;</code> i <code>&lt;em&gt;</code>.
         title: Opis instancji
@@ -611,8 +615,6 @@ pl:
 
       <p>Tekst bazuje na <a href="https://github.com/discourse/discourse">polityce prywatności Discourse</a>.</p>
     title: Zasady korzystania i polityka prywatności %{instance}
-  themes:
-    default: Mastodon
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
@@ -629,7 +631,7 @@ pl:
     manual_instructions: 'Jeżeli nie możesz zeskanować kodu QR, musisz wprowadzić ten kod ręcznie:'
     recovery_codes: Przywróć kody zapasowe
     recovery_codes_regenerated: Pomyślnie wygenerowano ponownie kody zapasowe
-    recovery_instructions_html: Jeżeli kiedykolwiek utracisz dostęp do telefonu, możesz wykorzystać jeden z kodów zapasowych, aby odzyskać dostęp do konta. <strong>Trzymaj je w bezpiecznym miejscu</strong>. Na przykład, wydrukuj je i przechowuj z ważnymu dokumentami.
+    recovery_instructions_html: Jeżeli kiedykolwiek utracisz dostęp do telefonu, możesz wykorzystać jeden z kodów zapasowych, aby odzyskać dostęp do konta. <strong>Trzymaj je w bezpiecznym miejscu</strong>. Na przykład, wydrukuj je i przechowuj z ważnymi dokumentami.
     setup: Skonfiguruj
     wrong_code: Wprowadzony kod jest niepoprawny! Czy czas serwera i urządzenia jest poprawny?
   users:

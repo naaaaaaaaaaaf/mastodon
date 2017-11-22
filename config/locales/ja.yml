@@ -39,6 +39,7 @@ ja:
     followers: フォロワー
     following: フォロー中
     media: メディア
+    moved_html: "%{name} さんは引っ越しました %{new_profile_link}:"
     nothing_here: 何もありません
     people_followed_by: "%{name} さんがフォロー中のアカウント"
     people_who_follow: "%{name} さんをフォロー中のアカウント"
@@ -48,6 +49,7 @@ ja:
     reserved_username: このユーザー名は予約されています。
     roles:
       admin: Admin
+      moderator: Mod
     unfollow: フォロー解除
   admin:
     account_moderation_notes:
@@ -62,6 +64,7 @@ ja:
       by_domain: ドメイン
       confirm: 確認
       confirmed: 確認済み
+      demote: 降格
       disable: 無効化
       disable_two_factor_authentication: 二段階認証を無効にする
       disabled: 無効
@@ -101,6 +104,7 @@ ja:
       outbox_url: Outbox URL
       perform_full_suspension: 完全に活動停止させる
       profile_url: プロフィールURL
+      promote: 昇格
       protocol: プロトコル
       public: パブリック
       push_subscription_expires: PuSH購読期限
@@ -108,6 +112,11 @@ ja:
       reset: リセット
       reset_password: パスワード再設定
       resubscribe: 再講読
+      role: 役割
+      roles:
+        admin: 管理者
+        moderator: モデレーター
+        user: ユーザー
       salmon_url: Salmon URL
       search: 検索
       shared_inbox_url: Shared Inbox URL
@@ -237,6 +246,9 @@ ja:
         open:
           desc_html: 誰でも自由にアカウントを作成できるようにします
           title: 新規登録を受け付ける
+      show_staff_badge:
+        desc_html: ユーザーページにスタッフのバッジを表示します
+        title: スタッフバッジを表示する
       site_description:
         desc_html: フロントページへの表示と meta タグに使用される紹介文です。HTMLタグ、特に<code>&lt;a&gt;</code> と <code>&lt;em&gt;</code>が使えます。
         title: インスタンスの説明
@@ -600,8 +612,6 @@ ja:
 
       <p>オリジナルの出典 <a href="https://github.com/discourse/discourse">Discourse privacy policy</a>.</p>
     title: "%{instance} 利用規約・プライバシーポリシー"
-  themes:
-    default: Mastodon
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"
