@@ -549,8 +549,8 @@ export default class DoodleModal extends ImmutablePureComponent {
 
         <div className='doodle-modal__action-bar'>
           <div className='doodle-toolbar'>
-            <Button text='Done' onClick={this.onDoneButton} />
-            <Button text='Cancel' onClick={this.onCancelButton} />
+            <Button text='完了' onClick={this.onDoneButton} />
+            <Button text='キャンセル' onClick={this.onCancelButton} />
           </div>
           <div className='filler' />
           <div className='doodle-toolbar with-inputs'>
