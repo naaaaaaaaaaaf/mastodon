@@ -230,7 +230,11 @@ Rails.application.routes.draw do
       resources :follows,    only: [:create]
       resources :media,      only: [:create, :update]
       resources :blocks,     only: [:index]
-      resources :mutes,      only: [:index]
+      resources :mutes,      only: [:index] do
+        collection do 
+          get 'details'
+        end
+      end
       resources :favourites, only: [:index]
       resources :reports,    only: [:index, :create]
 
@@ -250,10 +254,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :notifications, only: [:index, :show] do
+      resources :notifications, only: [:index, :show, :destroy] do
         collection do
           post :clear
           post :dismiss
+          delete :destroy_multiple
         end
       end
 

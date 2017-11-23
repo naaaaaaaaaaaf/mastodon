@@ -56,6 +56,13 @@ RSpec.describe FeedManager do
         expect(FeedManager.instance.filter?(:home, reblog, bob.id)).to be true
       end
 
+      it 'returns true for reblog from account with reblogs disabled' do
+        status = Fabricate(:status, text: 'Hello world', account: jeff)
+        reblog = Fabricate(:status, reblog: status, account: alice)
+        bob.follow!(alice, reblogs: false)
+        expect(FeedManager.instance.filter?(:home, reblog, bob.id)).to be true
+      end
+
       it 'returns false for reply by followee to another followee' do
         status = Fabricate(:status, text: 'Hello world', account: jeff)
         reply  = Fabricate(:status, text: 'Nay', thread: status, account: alice)
@@ -105,6 +112,13 @@ RSpec.describe FeedManager do
         expect(FeedManager.instance.filter?(:home, status, bob.id)).to be true
       end
 
+      it 'returns true for status by followee mentioning muted account' do
+        bob.mute!(jeff)
+        bob.follow!(alice)
+        status = PostStatusService.new.call(alice, 'Hey @jeff')
+        expect(FeedManager.instance.filter?(:home, status, bob.id)).to be true
+      end
+
       it 'returns true for reblog of a personally blocked domain' do
         alice.block_domain!('example.com')
         alice.follow!(jeff)
@@ -149,6 +163,22 @@ RSpec.describe FeedManager do
         reblog = Fabricate(:status, reblog: status, account: jeff)
 
         expect(FeedManager.instance.filter?(:home, reblog, alice.id)).to be true
+      end
+
+      it 'returns true for a status with a tag that matches a muted keyword' do
+        Fabricate('Glitch::KeywordMute', account: alice, keyword: 'jorts')
+        status = Fabricate(:status, account: bob)
+	status.tags << Fabricate(:tag, name: 'jorts')
+
+        expect(FeedManager.instance.filter?(:home, status, alice.id)).to be true
+      end
+
+      it 'returns true for a status with a tag that matches an octothorpe-prefixed muted keyword' do
+        Fabricate('Glitch::KeywordMute', account: alice, keyword: '#jorts')
+        status = Fabricate(:status, account: bob)
+	status.tags << Fabricate(:tag, name: 'jorts')
+
+        expect(FeedManager.instance.filter?(:home, status, alice.id)).to be true
       end
     end
 

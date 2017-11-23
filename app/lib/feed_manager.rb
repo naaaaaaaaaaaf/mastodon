@@ -152,6 +152,7 @@ class FeedManager
     return true if keyword_filter?(status, receiver_id)
 
     check_for_mutes = [status.account_id]
+    check_for_mutes.concat(status.mentions.pluck(:account_id))
     check_for_mutes.concat([status.reblog.account_id]) if status.reblog?
 
     return true if Mute.where(account_id: receiver_id, target_account_id: check_for_mutes).any?
@@ -167,7 +168,9 @@ class FeedManager
       should_filter &&= status.account_id != status.in_reply_to_account_id                                               # and it's not a self-reply
       return should_filter
     elsif status.reblog?                                                                                                 # Filter out a reblog
-      should_filter   = Block.where(account_id: status.reblog.account_id, target_account_id: receiver_id).exists?        # or if the author of the reblogged status is blocking me
+      src_id = status.account_id
+      should_filter   = Follow.where(account_id: receiver_id, target_account_id: src_id, show_reblogs: false).exists?    # if the reblogger's reblogs are suppressed
+      should_filter ||= Block.where(account_id: status.reblog.account_id, target_account_id: receiver_id).exists?        # or if the author of the reblogged status is blocking me
       should_filter ||= AccountDomainBlock.where(account_id: receiver_id, domain: status.reblog.account.domain).exists?  # or the author's domain is blocked
       return should_filter
     end
@@ -203,7 +206,6 @@ class FeedManager
 
     should_filter   = Block.where(account_id: receiver_id, target_account_id: check_for_blocks).any?                                     # Filter if it's from someone I blocked, in reply to someone I blocked, or mentioning someone I blocked
     should_filter ||= (status.account.silenced? && !Follow.where(account_id: receiver_id, target_account_id: status.account_id).exists?) # of if the account is silenced and I'm not following them
-
     should_filter ||= keyword_filter?(status, receiver_id)                                                                               # or if the mention contains a muted keyword
 
     should_filter
