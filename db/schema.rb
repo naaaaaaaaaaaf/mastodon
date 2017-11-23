@@ -126,6 +126,14 @@ ActiveRecord::Schema.define(version: 20171118012443) do
     t.index ["domain"], name: "index_domain_blocks_on_domain", unique: true
   end
 
+  create_table "favourite_tags", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "tag_id"], name: "index_favourite_tags_on_account_id_and_tag_id", unique: true
+  end
+
   create_table "email_domain_blocks", force: :cascade do |t|
     t.string "domain", default: "", null: false
     t.datetime "created_at", null: false
@@ -392,6 +400,7 @@ ActiveRecord::Schema.define(version: 20171118012443) do
     t.string "language"
     t.bigint "conversation_id"
     t.boolean "local"
+    t.json "enquete"
     t.bigint "account_id", null: false
     t.bigint "application_id"
     t.bigint "in_reply_to_account_id"

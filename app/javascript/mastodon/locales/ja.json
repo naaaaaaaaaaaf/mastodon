@@ -217,5 +217,11 @@
   "video.mute": "ミュート",
   "video.pause": "一時停止",
   "video.play": "再生",
-  "video.unmute": "ミュートを解除する"
+  "video.unmute": "ミュートを解除する",
+  "enquete_button.label": "アンケートを作成",
+  "enquete_input.item_1": "項目1",
+  "enquete_input.item_2": "項目2",
+  "enquete_input.item_3": "項目3(オプション)",
+  "enquete_input.item_4": "項目4(オプション)",
+  "enquete.expired": "終了"
 }

@@ -21,6 +21,9 @@ import { length } from 'stringz';
 import { countableText } from '../util/counter';
 import initialState from '../../../initial_state';
 
+import EnqueteButtonContainer from '../../enquete/containers/enquete_button_container.js';
+import EnqueteInputsContainer from '../../enquete/containers/enquete_inputs_container.js';
+
 const maxChars = initialState.max_toot_chars;
 
 const messages = defineMessages({
@@ -54,6 +57,7 @@ export default class ComposeForm extends ImmutablePureComponent {
     onPaste: PropTypes.func.isRequired,
     onPickEmoji: PropTypes.func.isRequired,
     showSearch: PropTypes.bool,
+    enquete: ImmutablePropTypes.map.isRequired,
   };
 
   static defaultProps = {
@@ -148,7 +152,13 @@ export default class ComposeForm extends ImmutablePureComponent {
   render () {
     const { intl, onPaste, showSearch } = this.props;
     const disabled = this.props.is_submitting;
-    const text     = [this.props.spoiler_text, countableText(this.props.text)].join('');
+    const enquete_items = this.props.enquete.get('items').toArray().join('');
+    const text = [this.props.spoiler_text, countableText(this.props.text)].join('') +
+    (this.props.enquete.get('active') ? enquete_items + 'a'.repeat(150) : '');
+
+    const buttonStyle = {
+      padding: '0 6px',
+    };
 
     let publishText = '';
 
@@ -196,17 +206,20 @@ export default class ComposeForm extends ImmutablePureComponent {
           <UploadFormContainer />
         </div>
 
+        <EnqueteInputsContainer />
+
         <div className='compose-form__buttons'>
           <UploadButtonContainer />
           <DoodleButtonContainer />
           <PrivacyDropdownContainer />
           <SensitiveButtonContainer />
           <SpoilerButtonContainer />
+          <EnqueteButtonContainer />
         </div>
 
         <div className='compose-form__publish'>
           <div className='character-counter__wrapper'><CharacterCounter max={maxChars} text={text} /></div>
-          <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabled || this.props.is_uploading || length(text) > maxChars || (text.length !== 0 && text.trim().length === 0)} block /></div>
+          <div className='compose-form__publish-button-wrapper'><Button text={publishText} style={buttonStyle} onClick={this.handleSubmit} disabled={disabled || this.props.is_uploading || length(text) > maxChars || (text.length !== 0 && text.trim().length === 0)} block /></div>
         </div>
       </div>
     );

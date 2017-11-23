@@ -23,6 +23,7 @@ const mapStateToProps = state => ({
   is_submitting: state.getIn(['compose', 'is_submitting']),
   is_uploading: state.getIn(['compose', 'is_uploading']),
   showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
+  enquete: state.get('enquetes'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
