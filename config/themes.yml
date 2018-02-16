@@ -1,1 +1,2 @@
 default: styles/application.scss
+angel: styles/angel.scss
