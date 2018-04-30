@@ -151,6 +151,7 @@ Rails.application.routes.draw do
         post :memorialize
       end
 
+      resource :change_email, only: [:show, :update]
       resource :reset, only: [:create]
       resource :silence, only: [:create, :destroy]
       resource :suspension, only: [:create, :destroy]
@@ -228,6 +229,7 @@ Rails.application.routes.draw do
       end
 
       namespace :timelines do
+        resource :direct, only: :show, controller: :direct
         resource :home, only: :show, controller: :home
         resource :public, only: :show, controller: :public
         resources :tag, only: :show
