@@ -33,7 +33,7 @@ module Mastodon
     end
 
     def source_base_url
-      'https://github.com/bounshi/mastodon/tree'
+      'https://github.com/naaaaaaaaaaaf/mastodon/tree/otogamer.me'
     end
 
     # specify git tag or commit hash here
